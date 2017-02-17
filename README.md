@@ -1,15 +1,15 @@
-# Lab 3 - *opularGithub*
+# Lab 3 - *PopularGithub*
 
 **PopularGithub** is a GitHub Repo search app using the [GitHub API](https://developer.github.com/v3/search/#search-repositories).
 
-Time spent: **X** hours spent in total
+Time spent: **8** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is completed:
 
-- [ ] Table rows for search results should be dynamic height according to the content height.
-- [ ] Custom cells should have the proper Auto Layout constraints.
+- [V] Table rows for search results should be dynamic height according to the content height.
+- [V] Custom cells should have the proper Auto Layout constraints.
 
 The following **additional** features are implemented:
 
@@ -24,7 +24,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/nanxinjin/PopularGithub/blob/master/PopularGithub%20walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
