@@ -10,16 +10,23 @@ import UIKit
 import MBProgressHUD
 
 // Main ViewController
-class RepoResultsViewController: UIViewController {
+class RepoResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var searchBar: UISearchBar!
     var searchSettings = GithubRepoSearchSettings()
 
     var repos: [GithubRepo]!
 
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+        
         // Initialize the UISearchBar
         searchBar = UISearchBar()
         searchBar.delegate = self
@@ -43,13 +50,52 @@ class RepoResultsViewController: UIViewController {
             // Print the returned repositories to the output window
             for repo in newRepos {
                 print(repo)
+                
             }   
-
+            self.repos = newRepos
             MBProgressHUD.hide(for: self.view, animated: true)
+            self.tableView.reloadData()
             }, error: { (error) -> Void in
-                print(error)
+                print(error!)
         })
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let repos = repos{
+            return repos.count
+        } else{
+            return 0
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! InfoCell
+        /*
+        cell.repo = repos![indexPath.row]
+        cell.title = repo["title"] as! String
+        overview = repo["overview"] as! String
+        let baseUrl = "https://image.tmdb.org/t/p/w500"
+        if let posterPath = movie["poster_path"] as? String{
+            let posterUrl = NSURL(string: baseUrl + posterPath)
+            cell.posterView.setImageWith(posterUrl as! URL)
+        }
+        cell.titleLabel.text = title
+        cell.overviewLabel.text = overview
+        print("row \(indexPath.row)")
+        */
+        let repo = repos[indexPath.row]
+        
+        cell.nameLabel.text = repo.name!
+        cell.byLabel.text = repo.ownerHandle!
+        cell.forkLabel.text = "\(repo.forks!)"
+        cell.starLabel.text = "\(repo.stars!)"
+        cell.descriptionLabel.text = repo.descriptions!
+        let avatarURL = URL(string: repo.ownerAvatarURL!)
+        cell.avatarImageView.setImageWith(avatarURL!)
+        
+        return cell
+    }
+
 }
 
 // SearchBar methods
